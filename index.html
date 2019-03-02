@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AURLS</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+        <style>
+            body {
+                text-align: center;
+                background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/escheresque_ste.png);
+                color: white;
+            }
+            #head{
+                margin-top: 20vh
+            }
+            h1 {
+                font-size: 5vw;
+            }
+            input{
+                padding: 8px 20px;
+		color: #4CAF50;
+                margin: 8px 0;
+                box-sizing: border-box;
+                border-radius: 4px;
+		font-weight: bold;
+		font-size: 16pt;
+            }
+            button{
+		font-weight: bold;
+		outline: none;
+                background-color: green; 
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline;
+                font-size: 16px;
+		cursor: pointer;
+            }
+	    button {
+		background-color: #FAFAFA;
+		color: #4CAF50;
+		border: 2px solid #4CAF50;
+		border-radius: 20px;
+            }
+            button:hover {
+		background-color: #4CAF50;
+		color: white;
+	    }  		
+	    .button1 {
+		background-color: #FAFAFA;
+		color: #4CAF50;
+		text-align: center;
+		border: 2px solid #4CAF50;
+		padding: 10px 12px;		
+		font-size: 16px;
+		border-radius: 20px;
+	    }
+	    .button1:hover {
+		background-color: #4CAF50;
+		color: white;	
+        </style>
+        <script>
+            function update_status (new_status) {
+                document.getElementById("status").innerHTML = new_status
+            }
+            function save () {
+		document.getElementById("copy_button").style.display = "inline-flex";
+		document.getElementById("shorten").style.display = "inline-flex";
+		document.getElementById("status").style.display = "none";
+		document.getElementById("copy_button").style.display = "inline";
+                update_status("Shortening...")
+                request = new XMLHttpRequest()
+                request.open("GET", document.location.href + "SAVE/" + value.value, true)
+                request.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        update_status(document.location.href+request.response)
+			document.getElementById("value").value = document.location.href+request.response;
+			document.getElementById("value").select();
+			document.getElementById("copy_button").innerHTML = "copy!"
+                    }
+                }
+                request.send()
+		document.getElementById("value").value = new_status;
+            }
+        </script>
+    </head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script>
+	function copyToClipboard(element) {
+	document.getElementById("copy_button").innerHTML = "Copied!"
+  	  var $temp = $("<input>");
+  	  $("body").append($temp);
+  	  $temp.val($(element).text()).select();
+  	  document.execCommand("copy");
+  	  $temp.remove();
+	}
+	copyCode.on('success', function(event) {
+	  event.clearSelection();
+	  event.trigger.textContent = 'Copied';
+	  window.setTimeout(function() {
+	    event.trigger.textContent = 'Copy';
+	  }, 2000);
+	});
+	</script>
+<style>
+h3 {
+  display: inline;
+  font-size: 0;  
+}
+div {
+  background-color: lightgray;
+  width: 400px;
+  border: 2px solid #4CAF50;
+  padding-left: 300px;
+}
+input {
+  text-align: middle;
+  border: 2px solid #4CAF50;
+  vertical-align: middle;
+}
+textarea {
+  vertical-align: middle;
+  font-weight: bold;
+  border: 2px solid #4CAF50;
+  border-radius: 2px;
+  display: none;
+  resize: none;
+}
+form {
+  display: inline;
+}
+</style>
+    <body>
+	<h1 id="head"><img src="https://fontmeme.com/permalink/190301/06a69c09b373c29d4f5fdcd926dac02e.png" alt="fancy-fonts" border="0"></h1>
+	<form action="javascript:save();myFunction();">
+        <input id="value" align="middle" style="width: 600px; text-align: center;" autocomplete="off" type="text" placeholder="https://google.com/" required
+		oninvalid="this.setCustomValidity('URL Required')"
+		oninput="this.setCustomValidity('')"  />
+	<br>
+	<br>
+        <button id="shorten" type="submit">Shrink!</button>
+	</form>
+	<button class="button1 button" onclick="copyToClipboard('#status')" style="display: none" id="copy_button">Copy!</button>
+	<h3 id="status" style="display: none;"></h3> 
+<script>
+var input = document.getElementById("value");
+input.addEventListener("keyup", function(event) {
+  event.preventDefault();
+  if (event.keyCode === 13) {
+    document.getElementById("shorten").click();
+  }
+});
+</script>
+    </body>
+</html>
+
